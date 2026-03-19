@@ -3,6 +3,19 @@ from pydantic import BaseModel
 import numpy as np
 import pickle
 import joblib
+import os
+import pickle
+
+app = FastAPI()
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+model_path = os.path.join(BASE_DIR, "model.pkl")
+
+print("Looking for model at:", model_path)
+
+with open(model_path, "rb") as f:
+    model = pickle.load(f)
 
 app = FastAPI()
 # Load the pre-trained logistic regression model
