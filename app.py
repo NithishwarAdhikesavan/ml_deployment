@@ -2,38 +2,25 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 import numpy as np
 import pickle
-import joblib
 import os
-import pickle
 
 app = FastAPI()
 
+# Load model and scaler using pickle (single, consistent method)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 model_path = os.path.join(BASE_DIR, "model.pkl")
+scaler_path = os.path.join(BASE_DIR, "scaler.pkl")
 
-print("Looking for model at:", model_path)
-
+print("Loading model from:", model_path)
 with open(model_path, "rb") as f:
     model = pickle.load(f)
 
-app = FastAPI()
-# Load the pre-trained logistic regression model
-model = joblib.load('logistic_regression_model.joblib')
-
-# Load the pre-trained StandardScaler
-scaler = joblib.load('standard_scaler.joblib')
-
-print("Model and Scaler loaded successfully.")
-
-
-# Load trained model and scaler
-with open("model.pkl", "rb") as f:
-    model = pickle.load(f)
-
-with open("scaler.pkl", "rb") as f:
+print("Loading scaler from:", scaler_path)
+with open(scaler_path, "rb") as f:
     scaler = pickle.load(f)
 
+print("Model and Scaler loaded successfully.")
 
 # Input schema
 class DiabetesFeatures(BaseModel):
@@ -46,10 +33,13 @@ class DiabetesFeatures(BaseModel):
     DiabetesPedigreeFunction: float
     Age: int
 
+# Root endpoint (important for Render health checks)
+@app.get("/")
+def home():
+    return {"message": "Diabetes Prediction API is running!"}
 
 @app.post("/predict")
 def predict_diabetes(features: DiabetesFeatures):
-    
     # Convert input to numpy array
     input_data = np.array([
         features.Pregnancies,
@@ -67,10 +57,8 @@ def predict_diabetes(features: DiabetesFeatures):
 
     # Prediction
     prediction = model.predict(scaled_input)
-
     outcome = int(prediction[0])
 
-    # Better response
     return {
         "prediction": outcome,
         "result": "Diabetic" if outcome == 1 else "Not Diabetic"
