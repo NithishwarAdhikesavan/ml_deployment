@@ -1,0 +1,103 @@
+🩺 Diabetes Prediction API using FastAPI & Machine Learning
+
+This project is a RESTful API built with FastAPI that predicts whether a person is diabetic or not based on medical input features. It uses a Logistic Regression model along with a Standard Scaler for preprocessing.
+
+🚀 Features
+🔍 Predicts diabetes based on user input
+⚡ Fast and efficient API using FastAPI
+🤖 Machine Learning model (Logistic Regression)
+📊 Data scaling using StandardScaler
+📦 Model and scaler loaded using Joblib
+🌐 Ready for deployment (Render compatible)
+🧠 Machine Learning Details
+Model Used: Logistic Regression
+Preprocessing: Standard Scaling
+Libraries:
+NumPy
+Scikit-learn
+Joblib
+FastAPI
+📥 Input Features
+
+The API expects the following input in JSON format:
+
+{
+  "Pregnancies": 2,
+  "Glucose": 120,
+  "BloodPressure": 70,
+  "SkinThickness": 20,
+  "Insulin": 80,
+  "BMI": 28.5,
+  "DiabetesPedigreeFunction": 0.5,
+  "Age": 30
+}
+📤 Output Response
+{
+  "prediction": 1,
+  "result": "Diabetic"
+}
+🛠️ Installation & Setup
+1. Clone the repository
+git clone https://github.com/your-username/diabetes-prediction-api.git
+cd diabetes-prediction-api
+2. Create virtual environment
+python -m venv venv
+3. Activate environment
+# Windows
+venv\Scripts\activate
+
+# Mac/Linux
+source venv/bin/activate
+4. Install dependencies
+pip install -r requirements.txt
+▶️ Run the Application
+uvicorn main:app --reload
+
+API will be available at:
+👉 http://127.0.0.1:8000
+
+📌 API Endpoints
+🔹 GET /
+
+Check if API is running
+
+Response:
+
+{
+  "message": "Diabetes Prediction API is running!"
+}
+🔹 POST /predict
+
+Predict diabetes status
+
+Use tools like:
+
+Postman
+Thunder Client
+FastAPI Docs
+
+👉 Swagger UI:
+http://127.0.0.1:8000/docs
+
+📁 Project Structure
+📦 diabetes-prediction-api
+ ┣ 📜 main.py
+ ┣ 📜 logistic_regression_model.joblib
+ ┣ 📜 standard_scaler.joblib
+ ┣ 📜 requirements.txt
+ ┗ 📜 README.md
+☁️ Deployment
+
+This project is Render-ready and can be easily deployed using:
+
+Render
+Railway
+AWS
+Azure
+🙌 Acknowledgements
+FastAPI for building high-performance APIs
+Scikit-learn for ML model
+Joblib for model persistence
+📬 Contact
+
+If you have any questions or suggestions, feel free to connect!
